@@ -188,10 +188,12 @@ jobs:
         run: |
           find ./dist/npm -type f \( -path '*/bin/cookey' -o -path '*/bin/cookey.js' \) -exec chmod 755 {} +
 
+      - name: Install latest npm
+        run: npm install -g npm@latest
+
       - name: Publish npm packages
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "false"
+          NPM_CONFIG_PROVENANCE: "true"
         run: node ./scripts/publish-npm-packages.mjs --skip-build
 
   publish-pypi:
